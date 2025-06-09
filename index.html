@@ -218,6 +218,7 @@
       flex-direction: column;
       gap: 15px;
       max-width: 500px;
+      position: relative;
     }
     .section-container form label {
       font-size: 1.1rem;
@@ -248,6 +249,18 @@
     .section-container form input[type="date"]::-webkit-calendar-picker-indicator {
       cursor: pointer;
       opacity: 0.8;
+    }
+    .form-close {
+      position: absolute;
+      top: -50px;
+      right: -20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #e53e3e;
+      transition: color 0.3s;
+    }
+    .form-close:hover {
+      color: #c53030;
     }
     .btn {
       padding: 10px 18px;
@@ -304,16 +317,6 @@
       font-size: 1.6rem;
       margin-bottom: 20px;
     }
-    .close-modal {
-      float: right;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #e53e3e;
-      transition: color 0.3s;
-    }
-    .close-modal:hover {
-      color: #c53030;
-    }
     .confirmation-container {
       display: none;
       position: relative;
@@ -322,7 +325,7 @@
       border-radius: 12px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
       margin: 20px auto;
-      max-width: 148mm; /* A5 width */
+      max-width: 148mm;
       border: 3px double #2c5282;
       background: linear-gradient(to bottom, #fefce8, #fef9c3);
       overflow: hidden;
@@ -386,7 +389,6 @@
       flex: 0 0 60%;
       text-align: right;
     }
-    
     .confirmation-container .booking-id {
       display: inline-block;
       padding: 5px 10px;
@@ -398,7 +400,7 @@
     .confirmation-container img {
       display: block;
       margin: 15px auto 0;
-      width: 40mm; /* Reduced size */
+      width: 40mm;
       height: auto;
       border-radius: 8px;
       border: 2px solid #facc15;
@@ -433,24 +435,28 @@
       cursor: pointer;
       padding: 0.5rem;
     }
-    /* New styles for View Seva section */
+    /* Styles for View Seva section */
     .view-seva-container {
       display: none;
     }
     .filter-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 12px;
       margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .filter-container .filter-group {
+    .filter-group {
       flex: 1;
-      min-width: 200px;
+      min-width: 180px;
+      max-width: 100%;
     }
     .filter-container label {
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
+      font-size: 1rem;
     }
     .filter-container input,
     .filter-container select {
@@ -458,17 +464,22 @@
       padding: 8px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      font-size: 0.9rem;
+      box-sizing: border-box;
     }
     .filter-actions {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
     .seva-results {
       background: white;
       border-radius: 8px;
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 100%;
+      box-sizing: border-box;
     }
     .seva-table {
       width: 100%;
@@ -478,6 +489,7 @@
       padding: 10px;
       border: 1px solid #ddd;
       text-align: left;
+      font-size: 0.9rem;
     }
     .seva-table th {
       background-color: #f2f2f2;
@@ -490,15 +502,69 @@
       justify-content: flex-end;
       gap: 10px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
     .no-results {
       text-align: center;
       padding: 20px;
       color: #666;
+      font-size: 0.9rem;
     }
     @media (min-width: 769px) {
       .sidebar-toggle {
         display: block;
+      }
+    }
+    @media (min-width: 769px) and (max-width: 992px) {
+      .filter-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+      }
+      .filter-group {
+        min-width: 100%;
+        max-width: 100%;
+      }
+      .filter-container label {
+        font-size: 0.9rem;
+      }
+      .filter-container input,
+      .filter-container select {
+        padding: 7px;
+        font-size: 0.85rem;
+      }
+      .filter-actions {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .filter-actions .btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.85rem;
+      }
+      .seva-results {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px;
+      }
+      .seva-table {
+        min-width: 500px;
+        font-size: 0.85rem;
+      }
+      .seva-table th,
+      .seva-table td {
+        padding: 8px;
+        white-space: nowrap;
+      }
+      .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .action-buttons .btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.85rem;
       }
     }
     @media (max-width: 768px) {
@@ -564,6 +630,85 @@
       }
       .filter-container {
         flex-direction: column;
+        gap: 8px;
+        padding: 8px;
+        margin-bottom: 12px;
+      }
+      .filter-group {
+        min-width: 100%;
+        max-width: 100%;
+      }
+      .filter-container label {
+        font-size: 0.85rem;
+      }
+      .filter-container input,
+      .filter-container select {
+        padding: 6px;
+        font-size: 0.8rem;
+      }
+      .filter-actions {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .filter-actions .btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.8rem;
+      }
+      .seva-results {
+        padding: 8px;
+        overflow-x: hidden;
+      }
+      .seva-table {
+        display: block;
+        font-size: 0.8rem;
+      }
+      .seva-table thead {
+        display: none;
+      }
+      .seva-table tbody,
+      .seva-table tr {
+        display: block;
+      }
+      .seva-table tr {
+        margin-bottom: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 8px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .seva-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px;
+        border: none;
+        font-size: 0.8rem;
+        line-height: 1.4;
+      }
+      .seva-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c5282;
+        flex: 0 0 35%;
+        min-width: 70px;
+      }
+      .seva-table td:not(:last-child) {
+        border-bottom: 1px dashed #ddd;
+      }
+      .action-buttons {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .action-buttons .btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.8rem;
+      }
+      .no-results {
+        font-size: 0.8rem;
+        padding: 12px;
       }
     }
     @media (max-width: 480px) {
@@ -583,40 +728,65 @@
       .confirmation-container h3 { font-size: 1.5rem; }
       .confirmation-container p { font-size: 1rem; }
       .confirmation-container img { width: 30mm; }
-      .seva-table {
-        font-size: 0.8rem;
+      .filter-container {
+        padding: 6px;
+        gap: 6px;
       }
-      .seva-table th, .seva-table td {
+      .filter-container label {
+        font-size: 0.75rem;
+      }
+      .filter-container input,
+      .filter-container select {
         padding: 5px;
+        font-size: 0.75rem;
+      }
+      .filter-actions .btn {
+        padding: 6px;
+        font-size: 0.75rem;
+      }
+      .seva-table {
+        font-size: 0.75rem;
+      }
+      .seva-table td {
+        font-size: 0.75rem;
+        padding: 3px;
+      }
+      .seva-table td::before {
+        min-width: 60px;
+        flex: 0 0 40%;
+      }
+      .action-buttons .btn {
+        padding: 6px;
+        font-size: 0.75rem;
+      }
+      .no-results {
+        font-size: 0.75rem;
+        padding: 10px;
       }
     }
-    /* Specific styling for Reset button */
-#reset-filter {
-  background: #6b7280; /* Gray for neutral action */
-  color: #fff;
-  border: 1px solid #4b5563;
-}
-#reset-filter:hover {
-  background: #4b5563; /* Darker gray on hover */
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Specific styling for Back to Dashboard button */
-#back-to-dashboard {
-  background: #4b5e9e; /* Lighter blue to match theme-blue gradient */
-  color: #fff;
-  border: 1px solid #3b82f6;
-}
-#back-to-dashboard:hover {
-  background: #3b82f6; /* Matches theme-blue gradient end */
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
+    #reset-filter {
+      background: #6b7280;
+      color: #fff;
+      border: 1px solid #4b5563;
+    }
+    #reset-filter:hover {
+      background: #4b5563;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    #back-to-dashboard {
+      background: #4b5e9e;
+      color: #fff;
+      border: 1px solid #3b82f6;
+    }
+    #back-to-dashboard:hover {
+      background: #3b82f6;
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 <body>
-  <!-- Topbar -->
   <nav id="topbar" class="theme-blue text-white p-4 flex justify-between items-center sticky top-0 z-10 w-full">
     <div class="flex items-center space-x-4">
       <i class="fas fa-bars sidebar-toggle" id="sidebar-toggle"></i>
@@ -632,9 +802,7 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <div class="dashboard-container">
-    <!-- Sidebar -->
     <div class="sidebar">
       <i class="fas fa-times sidebar-expand" id="sidebar-expand"></i>
       <h3>SJRSM Accountant</h3>
@@ -643,7 +811,6 @@
       <a href="#" id="sidebar-sign-out"><i class="fas fa-sign-out-alt"></i> <span>Sign Out</span></a>
     </div>
 
-    <!-- Dashboard Section -->
     <div class="main-content">
       <div id="dashboard-section" class="section">
         <div class="stats-cards">
@@ -677,7 +844,6 @@
         </div>
       </div>
 
-      <!-- View Seva Section -->
       <div id="view-seva-section" class="section view-seva-container">
         <div class="section-container">
           <h3>View Seva Bookings</h3>
@@ -704,7 +870,6 @@
             <button id="apply-filter" class="btn btn-primary">Apply Filters</button>
             <button id="reset-filter" class="btn">Reset</button>
           </div>
-          
           <div class="seva-results">
             <table class="seva-table">
               <thead>
@@ -719,30 +884,25 @@
                 </tr>
               </thead>
               <tbody id="seva-results-body">
-                <!-- Results will be populated here -->
               </tbody>
             </table>
             <div id="no-results" class="no-results" style="display: none;">
               No seva bookings found matching your criteria.
             </div>
           </div>
-          
           <div class="action-buttons">
             <button id="print-seva" class="btn btn-primary">Print</button>
             <button id="download-seva-csv" class="btn btn-success">Download CSV</button>
-            
             <button id="back-to-dashboard" class="btn" aria-label="Return to dashboard">Back to Dashboard</button>
-          
           </div>
         </div>
       </div>
 
-      <!-- Seva Booking Modal -->
       <div id="seva-modal" class="modal">
         <div class="modal-content section-container">
-          <span class="close-modal">×</span>
           <h3>Book Seva (Manual)</h3>
           <form id="seva-form">
+            <span class="form-close">×</span>
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
             <label for="contact">Contact Number</label>
@@ -765,31 +925,28 @@
         </div>
       </div>
 
-      <!-- Confirmation Container -->
       <div id="confirmation-container" class="confirmation-container">
-          <div class="confirmation-header">
-            <h3>Seva Booking Confirmation</h3>
-          </div>
-              <div>
-                <img src="images/logo.png" alt="Temple Logo">
-                <p><strong>Temple:</strong> Sri JayaRama Seva Mandali</p>
-                <p><strong>Booking ID:</strong> <span class="booking-id" id="booking-id"></span></p>
-                <p><strong>Full Name:</strong> <span id="confirm-name"></span></p>
-                <p><strong>Contact Number:</strong> <span id="confirm-contact"></span></p>
-                <p><strong>Seva Type:</strong> <span id="confirm-seva-type"></span></p>
-                <p><strong>Date:</strong> <span id="confirm-date"></span></p>
-                <p><strong>Time:</strong> <span id="confirm-time"></span></p>
-                <p><strong>Amount:</strong> <span>₹<span id="confirm-amount"></span></span></p>
-              </div>
-            <div class="confirmation-buttons">
-              <button id="download-pdf" class="btn btn-success">Download PDF</button>
-              <button id="print-form" class="btn btn-primary">Print</button>
-              <button id="new-booking" class="btn btn-primary">New Booking</button>
-            </div>
-       
+        <div class="confirmation-header">
+          <h3>Seva Booking Confirmation</h3>
+        </div>
+        <div>
+          <img src="images/logo.png" alt="Temple Logo">
+          <p><strong>Temple:</strong> <span>Sri JayaRama Seva Mandali</span></p>
+          <p><strong>Booking ID:</strong> <span class="booking-id" id="booking-id"></span></p>
+          <p><strong>Full Name:</strong> <span id="confirm-name"></span></p>
+          <p><strong>Contact Number:</strong> <span id="confirm-contact"></span></p>
+          <p><strong>Seva Type:</strong> <span id="confirm-seva-type"></span></p>
+          <p><strong>Date:</strong> <span id="confirm-date"></span></p>
+          <p><strong>Time:</strong> <span id="confirm-time"></span></p>
+          <p><strong>Amount:</strong> <span>₹<span id="confirm-amount"></span></span></p>
+        </div>
+        <div class="confirmation-buttons">
+          <button id="download-pdf" class="btn btn-success">Download PDF</button>
+          <button id="print-form" class="btn btn-primary">Print</button>
+          <button id="new-booking" class="btn btn-primary">New Booking</button>
+        </div>
       </div>
 
-      <!-- Global Footer -->
       <footer class="main-footer">
         @2025 Sri JayaRama Seva Mandali - Developed By Bloom It Solutions
       </footer>
@@ -798,7 +955,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Sidebar toggle functionality
       const sidebarToggle = document.getElementById('sidebar-toggle');
       const sidebarExpand = document.getElementById('sidebar-expand');
       const sidebar = document.querySelector('.sidebar');
@@ -817,7 +973,6 @@
         });
       }
 
-      // Menu toggle for small screens
       const menuToggle = document.querySelector('.menu-toggle');
       if (menuToggle && sidebar) {
         menuToggle.addEventListener('click', () => {
@@ -825,7 +980,6 @@
         });
       }
 
-      // Admin dropdown toggle
       const adminIcon = document.getElementById('admin-icon');
       const adminDropdown = document.getElementById('admin-dropdown');
       if (adminIcon && adminDropdown) {
@@ -840,17 +994,14 @@
         });
       }
 
-      // Seva booking functionality
       const bookSevaCard = document.querySelector('.book-seva-card');
       const sevaModal = document.getElementById('seva-modal');
-      const closeModal = document.querySelector('.close-modal');
+      const formClose = document.querySelector('.form-close');
       const sevaForm = document.getElementById('seva-form');
       const confirmationContainer = document.getElementById('confirmation-container');
       const downloadPdfButton = document.getElementById('download-pdf');
       const printButton = document.getElementById('print-form');
       const newBookingButton = document.getElementById('new-booking');
-
-      // View Seva functionality
       const viewSevaCard = document.getElementById('view-seva-card');
       const viewSevaSection = document.getElementById('view-seva-section');
       const dashboardSection = document.getElementById('dashboard-section');
@@ -862,12 +1013,10 @@
       const sevaResultsBody = document.getElementById('seva-results-body');
       const noResultsDiv = document.getElementById('no-results');
 
-      // Generate unique ID
       const generateUniqueId = () => {
         return 'SEVA-' + Math.random().toString(36).substr(2, 9).toUpperCase();
       };
 
-      // Show modal when clicking Book Seva card
       if (bookSevaCard && sevaModal) {
         bookSevaCard.addEventListener('click', () => {
           sevaModal.classList.add('active');
@@ -877,17 +1026,15 @@
         });
       }
 
-      // Show View Seva section when clicking View Seva card
       if (viewSevaCard && viewSevaSection) {
         viewSevaCard.addEventListener('click', () => {
           viewSevaSection.style.display = 'block';
           dashboardSection.style.display = 'none';
           confirmationContainer.classList.remove('active');
-          loadSevaData(); // Load all seva data initially
+          loadSevaData();
         });
       }
 
-      // Back to dashboard button
       if (backToDashboardBtn) {
         backToDashboardBtn.addEventListener('click', () => {
           viewSevaSection.style.display = 'none';
@@ -895,57 +1042,50 @@
         });
       }
 
-      // Load seva data from localStorage
       function loadSevaData(filters = {}) {
-  // Get data from localStorage, default to empty array if null/undefined
-  const bookings = JSON.parse(localStorage.getItem('sevaBookings') || '[]');
-  
-  let filteredBookings = [...bookings];
-  
-  // Apply filters if provided
-  if (filters.date) {
-    filteredBookings = filteredBookings.filter(booking => booking.date === filters.date);
-  }
-  if (filters.phone) {
-    filteredBookings = filteredBookings.filter(booking => 
-      booking.contact.includes(filters.phone));
-  }
-  if (filters.sevaType) {
-    filteredBookings = filteredBookings.filter(booking => 
-      booking.sevaType === filters.sevaType);
-  }
-  
-  // Display results
-  displaySevaResults(filteredBookings);
-}
-      
-      // Display seva results in table
+        const bookings = JSON.parse(localStorage.getItem('sevaBookings') || '[]');
+        let filteredBookings = [...bookings];
+        if (filters.date) {
+          filteredBookings = filteredBookings.filter(booking => booking.date === filters.date);
+        }
+        if (filters.phone) {
+          filteredBookings = filteredBookings.filter(booking => 
+            booking.contact.includes(filters.phone));
+        }
+        if (filters.sevaType) {
+          filteredBookings = filteredBookings.filter(booking => 
+            booking.sevaType === filters.sevaType);
+        }
+        displaySevaResults(filteredBookings);
+      }
+
       function displaySevaResults(bookings) {
         sevaResultsBody.innerHTML = '';
-        
         if (bookings.length === 0) {
           noResultsDiv.style.display = 'block';
           return;
         }
-        
         noResultsDiv.style.display = 'none';
-        
         bookings.forEach(booking => {
           const row = document.createElement('tr');
+          const escapeHtml = (str) => {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+          };
           row.innerHTML = `
-            <td>${booking.id}</td>
-            <td>${booking.name}</td>
-            <td>${booking.contact}</td>
-            <td>${booking.sevaType}</td>
-            <td>${booking.date}</td>
-            <td>${booking.time}</td>
-            <td>₹${booking.amount}</td>
+            <td data-label="Booking ID">${escapeHtml(booking.id)}</td>
+            <td data-label="Name">${escapeHtml(booking.name)}</td>
+            <td data-label="Phone">${escapeHtml(booking.contact)}</td>
+            <td data-label="Seva Type">${escapeHtml(booking.sevaType)}</td>
+            <td data-label="Date">${escapeHtml(booking.date)}</td>
+            <td data-label="Time">${escapeHtml(booking.time)}</td>
+            <td data-label="Amount">₹${escapeHtml(booking.amount)}</td>
           `;
           sevaResultsBody.appendChild(row);
         });
       }
-      
-      // Apply filters
+
       if (applyFilterBtn) {
         applyFilterBtn.addEventListener('click', () => {
           const filters = {
@@ -956,18 +1096,15 @@
           loadSevaData(filters);
         });
       }
-      
-      // Reset filters
       if (resetFilterBtn) {
         resetFilterBtn.addEventListener('click', () => {
           document.getElementById('filter-date').value = '';
           document.getElementById('filter-phone').value = '';
           document.getElementById('filter-seva-type').value = '';
-          loadSevaData(); // Load all data
+          loadSevaData();
         });
       }
-      
-      // Print Seva results
+
       if (printSevaBtn) {
         printSevaBtn.addEventListener('click', () => {
           const printContent = `
@@ -994,16 +1131,14 @@
               </div>
             </div>
           `;
-          
           const originalContent = document.body.innerHTML;
           document.body.innerHTML = printContent;
           window.print();
           document.body.innerHTML = originalContent;
-          window.location.reload(); // Reload to restore event listeners
+          window.location.reload();
         });
       }
-      
-      // Download Seva results as CSV
+
       if (downloadSevaCsvBtn) {
         downloadSevaCsvBtn.addEventListener('click', () => {
           const rows = Array.from(sevaResultsBody.querySelectorAll('tr'));
@@ -1011,20 +1146,13 @@
             alert('No data to download');
             return;
           }
-          
           let csvContent = "data:text/csv;charset=utf-8,";
-          
-          // Add headers
-          csvContent += "Booking ID,Name,Phone,Seva Type,Date,Time,Amount\n";
-          
-          // Add data rows
+          csvContent += "Booking ID,Name,Phone,PhoneSeva Type,Date,Time,Amount\n";
           rows.forEach(row => {
             const cells = Array.from(row.querySelectorAll('td'));
             const rowData = cells.map(cell => `"${cell.textContent}"`).join(',');
             csvContent += rowData + "\n";
           });
-          
-          // Create download link
           const encodedUri = encodeURI(csvContent);
           const link = document.createElement("a");
           link.setAttribute("href", encodedUri);
@@ -1035,15 +1163,13 @@
         });
       }
 
-      // Close modal
-      if (closeModal && sevaModal) {
-        closeModal.addEventListener('click', () => {
+      if (formClose && sevaModal) {
+        formClose.addEventListener('click', () => {
           sevaModal.classList.remove('active');
           sevaForm.reset();
         });
       }
 
-      // Handle form submission
       if (sevaForm) {
         sevaForm.addEventListener('submit', (e) => {
           e.preventDefault();
@@ -1056,13 +1182,9 @@
             time: document.getElementById('time').value,
             amount: document.getElementById('amount').value
           };
-
-          // Store in localStorage
           const bookings = JSON.parse(localStorage.getItem('sevaBookings') || '[]');
           bookings.push(bookingData);
           localStorage.setItem('sevaBookings', JSON.stringify(bookings));
-
-          // Display confirmation
           document.getElementById('booking-id').textContent = bookingData.id;
           document.getElementById('confirm-name').textContent = bookingData.name;
           document.getElementById('confirm-contact').textContent = bookingData.contact;
@@ -1070,7 +1192,6 @@
           document.getElementById('confirm-date').textContent = bookingData.date;
           document.getElementById('confirm-time').textContent = bookingData.time;
           document.getElementById('confirm-amount').textContent = bookingData.amount;
-
           sevaModal.classList.remove('active');
           document.getElementById('dashboard-section').style.display = 'none';
           confirmationContainer.classList.add('active');
@@ -1079,7 +1200,6 @@
         });
       }
 
-      // Preload logo for PDF
       let logoBase64 = null;
       const preloadLogo = () => {
         return new Promise((resolve, reject) => {
@@ -1097,12 +1217,11 @@
           };
           img.onerror = () => {
             console.error('Failed to load logo');
-            resolve(); // Continue without logo
+            resolve();
           };
         });
       };
 
-      // Generate and download PDF
       if (downloadPdfButton) {
         downloadPdfButton.addEventListener('click', async () => {
           await preloadLogo();
@@ -1110,40 +1229,34 @@
           const doc = new jsPDF({
             orientation: 'portrait',
             unit: 'mm',
-            format: 'a5' // A5 size: 148 x 210 mm
+            format: 'a5'
           });
-
-          // Add background pattern
-          doc.setFillColor(250, 204, 21); // #facc15
+          doc.setFillColor(250, 204, 21);
           for (let x = 0; x < 148; x += 10) {
             for (let y = 0; y < 210; y += 10) {
               doc.rect(x, y, 5, 5, 'F');
             }
           }
-          doc.setFillColor(254, 252, 232); // #fefce8
+          doc.setFillColor(254, 252, 232);
           doc.rect(0, 0, 148, 210, 'F');
-
-          // Add header
-          doc.setFillColor(44, 82, 130); // #2c5282
+          doc.setFillColor(44, 82, 130);
           doc.rect(0, 0, 148, 20, 'F');
           doc.setFont('Georgia', 'normal');
           doc.setFontSize(16);
           doc.setTextColor(255, 255, 255);
           doc.text('Seva Booking Confirmation', 74, 12, { align: 'center' });
-
-          // Add content
           doc.setFontSize(12);
-          doc.setTextColor(51, 51, 51); // #333
+          doc.setTextColor(51, 51, 51);
           let y = 30;
           const lineHeight = 8;
           doc.text('Temple: ', 20, y);
-          doc.setTextColor(180, 83, 9); // #b45309
+          doc.setTextColor(180, 83, 9);
           doc.text('Sri JayaRama Seva Mandali', 40, y);
           doc.setTextColor(51, 51, 51);
           y += lineHeight;
           doc.text('Booking ID: ', 20, y);
           doc.setTextColor(255, 255, 255);
-          doc.setFillColor(44, 82, 130); // #2c5282
+          doc.setFillColor(44, 82, 130);
           doc.rect(45, y - 5, 40, 8, 'F');
           doc.text(`${document.getElementById('booking-id').textContent}`, 47, y);
           doc.setTextColor(51, 51, 51);
@@ -1177,22 +1290,16 @@
           doc.setTextColor(180, 83, 9);
           doc.text(`₹${document.getElementById('confirm-amount').textContent}`, 40, y);
           y += lineHeight;
-
-          // Add logo
           if (logoBase64) {
-            doc.addImage(logoBase64, 'PNG', 54, y, 40, 26); // 40mm wide, centered
+            doc.addImage(logoBase64, 'PNG', 54, y, 40, 26);
           }
-
-          // Add border
-          doc.setDrawColor(44, 82, 130); // #2c5282
+          doc.setDrawColor(44, 82, 130);
           doc.setLineWidth(1);
           doc.rect(5, 5, 138, 200);
-
           doc.save(`Seva_Booking_${document.getElementById('booking-id').textContent}.pdf`);
         });
       }
 
-      // Print confirmation
       if (printButton) {
         printButton.addEventListener('click', () => {
           const printContent = confirmationContainer.innerHTML;
@@ -1224,11 +1331,10 @@
           `;
           window.print();
           document.body.innerHTML = originalContent;
-          window.location.reload(); // Reload to restore event listeners
+          window.location.reload();
         });
       }
 
-      // Start new booking
       if (newBookingButton) {
         newBookingButton.addEventListener('click', () => {
           confirmationContainer.classList.remove('active');
